@@ -2,7 +2,7 @@ require "blarg/version"
 require 'pry'
 require 'camping'
 
-BLOG_REPO = '/Users/brit/projects/improvedmeans/'
+BLOG_REPO = '/Users/mikevaughan/Desktop/improvedmeans/'
 
 Camping.goes :Blarg
 
@@ -187,6 +187,17 @@ end
 
 def Blarg.create
   Blarg::Models.create_schema
+end
+
+def top_tags
+  t = Hash.new(0)
+  Blarg::Models::Post.find_each do |p|
+    p.tags.each do |tag|
+    t[tag] += 1
+  end
+  end
+  top_ten = results.sort_by{|k,v| -v}.first(10)
+  puts top_ten
 end
 
 #blog = BlogApp.new
